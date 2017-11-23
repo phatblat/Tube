@@ -1,10 +1,7 @@
+# macOS
 .DS_Store
-*.xccheckout
-*.xcscmblueprint
-xcuserdata
-Carthage/
-Pods/
-.rubygems/
-bin/
-build/
+
+# Gradle
 .gradle/
+build/
+gradlew.bat
