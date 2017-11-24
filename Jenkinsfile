@@ -6,7 +6,9 @@
 @Library('pipeline') _
 
 node {
-    checkout scm
-    sh "ls -l"
-    gradle "projects"
+    stage("Checkout") {
+        checkout scm
+        sh "ls -l"
+        gradle "projects"
+    }
 }
