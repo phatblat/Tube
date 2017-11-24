@@ -4,3 +4,7 @@
  */
 
 @Library('pipeline') _
+
+node {
+    gradle "projects"
+}
