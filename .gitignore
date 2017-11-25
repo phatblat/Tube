@@ -5,3 +5,8 @@
 .gradle/
 build/
 gradlew.bat
+
+# VS Code
+.project
+.settings
+.vscode
