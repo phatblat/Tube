@@ -1,9 +1,9 @@
 /*
  * Jenkinsfile
- * pipeline
+ * Tube
  */
 
-@Library('pipeline') _
+@Library('Tube') _
 
 node {
     stage("Checkout") {

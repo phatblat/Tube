@@ -1,6 +1,6 @@
 /*
  * gradle.groovy
- * pipeline
+ * Tube
  *
  * https://jenkins.io/blog/2017/06/27/speaker-blog-SAS-jenkins-world/
  */
