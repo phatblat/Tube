@@ -1,6 +1,6 @@
 /*
  * settings.gradle
- * pipeline
+ * Tube
  */
  
-rootProject.name = 'pipeline'
+rootProject.name = 'Tube'

@@ -1,6 +1,6 @@
 /*
  * build.gradle
- * pipeline
+ * Tube
  */
 
 task removeBatchFile(type: Delete) { delete 'gradlew.bat' }
