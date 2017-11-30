@@ -4,7 +4,9 @@
 
 Reusable jenkins pipeline build.
 
-![series of tubes](images/internet-a-series-of-tubes.jpg)
+<p align="center">
+  <img width="468" height="409" src="images/internet-a-series-of-tubes.jpg" alt="the internet: a series of tubes">
+</p>
 
 ## License
 
