@@ -25,7 +25,7 @@ simpleBuild {
     after_script = 'echo done now'
 
     notifications = [
-        email : "ben@octop.ad"
+        // email : "ben@octop.ad"
     ]
 
 }
