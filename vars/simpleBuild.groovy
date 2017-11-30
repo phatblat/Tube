@@ -41,11 +41,12 @@ def call(body) {
     /** Run the build scripts */
 
     try {
-        if (config.docker_image != null) {
-            runViaDocker(config)
-        } else {
-            runViaLabel(config)
-        }
+        // if (config.docker_image != null) {
+        //     runViaDocker(config)
+        // } else {
+        //     runViaLabel(config)
+        // }
+        runPipeline(config)
     } catch (Exception rethrow) {
         failureDetail = failureDetail(rethrow)
         sendMail(config, "FAILURE: Pipeline '${env.JOB_NAME}' (${env.BUILD_NUMBER}) failed!",
@@ -93,6 +94,34 @@ def runViaDocker(config) {
     }
 }
 
+def runPipeline(config) {
+    node {
+        stage('Checkout') {
+            step [$class: 'WsCleanup']
+            echo "workspace after cleanup:"
+            sh "ls -ah"
+
+            checkout scm
+            echo "workspace after checkout:"
+            sh "ls -ah"
+        }
+        stage('Build') {
+            echo "Build stage"
+        }
+        stage('Test') {
+            echo "Test stage"
+        }
+        stage('Lint') {
+            echo "Lint stage"
+        }
+        stage('Release') {
+            echo "Release stage"
+        }
+        stage('Deploy') {
+            echo "Deploy stage"
+        }
+    }
+}
 
 /** Run the before/script combination */
 def runScripts(config) {
