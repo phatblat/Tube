@@ -7,7 +7,7 @@
 
 // Register webhooks
 // https://issues.jenkins-ci.org/browse/JENKINS-35132#commentauthor_294758_verbose
-properties([pipelineTriggers([githubPush()])])
+// properties([pipelineTriggers([githubPush()])])
 
 simpleBuild {
 
