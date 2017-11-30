@@ -18,7 +18,7 @@ simpleBuild {
         BAR : "YASS"
     ]
 
-    git_repo = "https://github.com/cloudbeers/PR-demo"
+    // git_repo = "https://github.com/cloudbeers/PR-demo"
 
     before_script = "echo before"
     script = 'echo after $FOO'
