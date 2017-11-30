@@ -4,6 +4,8 @@
 
 Reusable jenkins pipeline build.
 
+![series of tubes](images/internet-a-series-of-tubes.jpg)
+
 ## License
 
 This repo is licensed under the MIT License. See the [LICENSE](LICENSE.md) file for rights and limitations.
