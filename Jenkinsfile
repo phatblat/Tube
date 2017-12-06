@@ -7,7 +7,7 @@
 
 simpleBuild {
 
-    machine = "node1"
+    machine = "null node"
 
     env = [
         FOO : 42,
