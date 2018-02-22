@@ -1,12 +1,23 @@
-# macOS
 .DS_Store
-
-# Gradle
 .gradle/
-build/
-gradlew.bat
-
-# VS Code
+.idea_modules/
+.idea/**/dataSources*
+.idea/**/dynamic.xml
+.idea/**/gradle.xml
+.idea/**/libraries
+.idea/**/sqlDataSources*
+.idea/**/tasks.xml
+.idea/**/uiDesigner.xml
+.idea/**/workspace.xml
+.idea/dictionaries
+.idea/misc.xml
+.idea/modules.xml
 .project
 .settings
 .vscode
+*.iml
+*.iws
+atlassian-ide-plugin.xml
+build/
+gradlew.bat
+out/
