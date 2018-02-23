@@ -12,16 +12,20 @@ class Tube implements Serializable {
         this.config = config
     }
 
+    /**
+     * Runs the pipeline.
+     */
     void run() {
-        runPipeline(config)
+        runPipeline(buildPipeline(config))
     }
 
     /**
-     * Runs the standard tube stages.
-     * @param config
+     * Creates a Jenkinsfile script closure with the standard tube stages.
+     * @param config Map of project ata passed to tube.
+     * @return Closure of all the pipeline build steps.
      */
-    void runPipeline(Map config) {
-        Closure script = {
+    Closure buildPipeline(Map config) {
+        return {
             // Wire up groovy delegate to script so that same Jenkinsfile syntax can be used
             resolveStrategy = Closure.DELEGATE_FIRST
             delegate = script
@@ -52,13 +56,19 @@ class Tube implements Serializable {
                 }
             }
         }
+    }
 
+    /**
+     * Invokes the given closure within a try/catch block.
+     * @param pipeline Closure containing pipeline build steps.
+     */
+    void runPipeline(Closure pipeline) {
         try {
-            script()
+            pipeline()
         } catch (Exception rethrow) {
             failureDetail = failureDetail(rethrow)
             println """\
-                FAILURE: '${env.JOB_NAME} (${env.BUILD_NUMBER})
+                FAILURE: '${script.env.JOB_NAME} (${script.env.BUILD_NUMBER})
                 
                 $failureDetail""".stripIndent()
             throw rethrow
