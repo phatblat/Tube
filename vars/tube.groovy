@@ -59,10 +59,6 @@ void call(body) {
         // } else {
         //     runViaLabel(config)
         // }
-
-        timeout(time: 1, unit: 'HOURS') {
-//            runPipeline(config)
-        }
     } catch (Exception rethrow) {
         failureDetail = failureDetail(rethrow)
         println "Error: $failureDetail"
