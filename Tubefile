@@ -9,7 +9,7 @@
 
 // Always use the current commit so that each build uses the current version to test itself.
 String version = env.GIT_COMMIT ?: "master"
-@Library("Tube@$version") _
+library "Tube@$version"
 
 tube {
     label = "node1"
