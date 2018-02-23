@@ -7,6 +7,8 @@
  * annotation (master by default).
  */
 
+echo "${env.environment}"
+
 // Always use the current commit so that each build uses the current version to test itself.
 String version = env.GIT_COMMIT ?: "master"
 library "Tube@$version"
