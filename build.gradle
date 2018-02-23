@@ -3,10 +3,96 @@
  * Tube
  */
 
+/* -------------------------------------------------------------------------- */
+// Build Script
+/* -------------------------------------------------------------------------- */
+
+buildscript {
+    repositories {
+        mavenCentral()
+        // The following is only necessary if you want to use SNAPSHOT releases.
+        // maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    }
+    dependencies {
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.1.0'
+    }
+}
+
+plugins {
+    id 'groovy'
+}
+
+//apply plugin: 'groovy'
+apply plugin: 'org.junit.platform.gradle.plugin'
+
 task removeBatchFile(type: Delete) { delete 'gradlew.bat' }
 
 wrapper {
     gradleVersion = '4.6-rc-2'
     distributionType = 'ALL'
     finalizedBy removeBatchFile
+}
+
+/* -------------------------------------------------------------------------- */
+// Build
+/* -------------------------------------------------------------------------- */
+
+repositories {
+    jcenter()
+    // JUnit and Spock snapshots are available from the Sonatype OSS snapshot repository
+    // maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+}
+
+dependencies {
+    //implementation localGroovy()
+    implementation 'org.codehaus.groovy:groovy-all:2.4.12'
+
+    testImplementation 'org.spockframework:spock-core:1.0-groovy-2.4'
+
+    testImplementation "junit:junit:4.12"
+    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.1.0"
+
+    // https://github.com/spockframework/spock/issues/617
+    //testImplementation "org.junit.jupiter:junit-jupiter-api:5.1.0"
+    //testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.1.0"
+}
+
+sourceSets {
+    main.groovy.srcDirs = ['src', 'vars']
+    test.groovy.srcDirs = ['test']
+}
+
+/* -------------------------------------------------------------------------- */
+// Test
+/* -------------------------------------------------------------------------- */
+
+// https://junit.org/junit5/docs/current/user-guide/#running-tests-build
+junitPlatform {
+    // platformVersion '1.1.0' // optional, defaults to plugin version
+    // reportsDir file('build/test-results/junit-platform') // this is the default
+    // enableStandardTestTask true
+    // selectors (optional)
+    // logManager (optional)
+
+    filters {
+        engines {
+            include 'junit-vintage'
+            exclude 'junit-jupiter'
+        }
+        packages {
+            include 'at.phatbl.tube'
+        }
+
+        includeClassNamePatterns '.*Spec', '.*Test', '.*Tests'
+
+        // org.junit.platform.console.options.Details enum,
+        details "none" // none(default), flat, tree, verbose
+    }
+}
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed"
+        showStandardStreams false
+    }
 }

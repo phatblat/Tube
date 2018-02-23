@@ -1,6 +1,6 @@
 # Tube
 
-[![Build Status](http://jenkins.log-g.co/buildStatus/icon?job=Tube/master)](http://jenkins.log-g.co/job/Tube/job/master/)
+[![Build Status](https://jenkins.log-g.co/buildStatus/icon?job=phatblat/Tube/master)](https://jenkins.log-g.co/job/phatblat/Tube/master/)
 
 Reusable jenkins pipeline build.
 

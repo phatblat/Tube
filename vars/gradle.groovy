@@ -6,5 +6,5 @@
  */
 
 def call(args) {
-    sh "./gradlew ${args}"
+    sh "./gradlew $args"
 }

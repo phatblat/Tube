@@ -1,0 +1,25 @@
+#!/usr/bin/env groovy
+/*
+ * Tubefile
+ * Tube
+ *
+ * Builds the current branch using the version of Tube loaded by the @Library
+ * annotation (master by default).
+ */
+
+
+echo "env.GIT_COMMIT: ${env.GIT_COMMIT}"
+echo "env.BRANCH_NAME: ${env.BRANCH_NAME}"
+echo "env.CHANGE_BRANCH: ${env.CHANGE_BRANCH}"
+// WARN: Method must be whitelisted
+//org.jenkinsci.plugins.scriptsecurity.sandbox.RejectedAccessException: Scripts not permitted to use method org.jenkinsci.plugins.workflow.support.actions.EnvironmentAction getEnvironment/**/
+echo "Environment: ${env.getEnvironment()}"
+
+// Always use the current commit so that each build uses the current version to test itself.
+String version = env.BRANCH_NAME ?: env.CHANGE_BRANCH
+library "Tube@$version"
+
+tube {
+    label = "node1"
+}
+
