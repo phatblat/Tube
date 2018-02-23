@@ -2,16 +2,16 @@
 /*
  * Tubefile
  * Tube
- * 
+ *
  * Builds the current branch using the version of Tube loaded by the @Library
  * annotation (master by default).
  */
 
-@Library('Tube') _
+@Library('Tube@tube-dsl') _
 
 tube {
 
-    machine = "node1"
+    label = "node1"
 
     env = [
         FOO : 42,
@@ -23,3 +23,4 @@ tube {
     after_script = 'echo done now'
 
 }
+

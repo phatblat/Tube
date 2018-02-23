@@ -4,9 +4,9 @@ package dsl
 
 /* sample with all the things turned on:
 <code>
-simpleBuild {
+tube {
 
-    machine = "hi-speed"
+    label = "hi-speed"
     docker = "java:1.9"
 
     env = [
@@ -26,7 +26,6 @@ simpleBuild {
 
 }
 </code>
-
 */
 
 
@@ -57,37 +56,17 @@ def call(body) {
     /** conditionally notify - maybe wih a catch */
     sendMail(config, "Pipeline '${env.JOB_NAME}' (${env.BUILD_NUMBER}) succeeded.",
             "Be happy. Pipeline '${env.JOB_NAME}' (${env.BUILD_NUMBER}) succeeded.")
-
-
 }
-
-def sendMail(config, mailSubject, message) {
-    /*
-     * We have to build a primitive list up so we can use simple iteration
-     * so that things can be serialized as per continuation passing style
-     */
-    emailList = []
-    if (config.notifications != null) {
-        for ( e in config.notifications ) {
-            if (e.getKey() == "email") {
-                emailList.add(e.getValue());
-            }
-        }
-    }
-
-    for (i = 0; i < emailList.size(); i++) {
-        mail body: message, subject: mailSubject, to: emailList[i]
-    }
-}
-
 
 /** Execute the scripts on the appropriate label node */
 def runViaLabel(config) {
-    node(config.machine) {runScripts(config)}
+    node(config.label) {
+        runScripts(config)
+    }
 }
 
 def runViaDocker(config) {
-    node(config.machine) {
+    node(config.label) {
         docker.image(config.docker_image).inside {
             runScripts(config)
         }
@@ -97,7 +76,7 @@ def runViaDocker(config) {
 def runPipeline(config) {
     node {
         stage('Checkout') {
-            step [$class: 'WsCleanup']
+            step([$class: 'WsCleanup'])
             echo "workspace after cleanup:"
             sh "ls -ah"
 
@@ -126,8 +105,8 @@ def runPipeline(config) {
 /** Run the before/script combination */
 def runScripts(config) {
     envList = []
-    for ( e in config.env ) {
-        envList.add("${e.getKey()}=${e.getValue()}")
+    for (e in config.env) {
+        envList.add("${e.key}=${e.value}")
     }
     withEnv(envList) {
 
@@ -146,8 +125,31 @@ def runScripts(config) {
         if (config.after_script != null) {
             sh config.after_script
         }
+    }
+}
 
+/**
+ * Sends an email to each notifications/email entry in config.
+ * @param config Map of configuration values passed to tube function.
+ * @param mailSubject Subject of message.
+ * @param message Body of message.
+ */
+def sendMail(config, mailSubject, message) {
+    /*
+     * We have to build a primitive list up so we can use simple iteration
+     * so that things can be serialized as per continuation passing style
+     */
+    emailList = []
+    if (config.notifications != null) {
+        for (e in config.notifications) {
+            if (e.key == "email") {
+                emailList.add(e.value)
+            }
+        }
+    }
 
+    emailList.each { email ->
+        mail body: message, subject: mailSubject, to: email
     }
 }
 
@@ -155,7 +157,7 @@ def runScripts(config) {
  * Read the detail from the exception to be used in the failure message
  * https://issues.jenkins-ci.org/browse/JENKINS-28119 will give better options.
  */
-def failureDetail(exception) {
+static def failureDetail(exception) {
     /* not allowed to access StringWriter
     def w = new StringWriter()
     exception.printStackTrace(new PrintWriter(w))

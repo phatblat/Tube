@@ -55,7 +55,7 @@ method(name: 'getContext', type: 'Object', params: [type:'Map'], doc: 'Advanced/
 method(name: 'withContext', type: 'Object', params: [context:java.lang.Object, body:'Closure'], doc: 'Advanced/Deprecated Use contextual object from internal APIs within a block')
 property(name: 'docker', type: 'org.jenkinsci.plugins.docker.workflow.DockerDSL')
 property(name: 'pipeline', type: 'org.jenkinsci.plugins.pipeline.modeldefinition.ModelStepLoader')
-property(name: 'simpleBuild', type: 'org.jenkinsci.plugins.simplebuild.SimpleBuildDSL')
+property(name: 'tube', type: 'org.jenkinsci.plugins.simplebuild.SimpleBuildDSL')
 property(name: 'env', type: 'org.jenkinsci.plugins.workflow.cps.EnvActionImpl.Binder')
 property(name: 'params', type: 'org.jenkinsci.plugins.workflow.cps.ParamsVariable')
 property(name: 'currentBuild', type: 'org.jenkinsci.plugins.workflow.cps.RunWrapperBinder')
