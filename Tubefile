@@ -7,7 +7,9 @@
  * annotation (master by default).
  */
 
-echo "${env.environment}"
+echo "Environment: ${env.getEnvironment()}"
+echo "env.GIT_COMMIT: ${env.GIT_COMMIT}"
+echo "env.BRANCH_NAME: ${env.BRANCH_NAME}"
 
 // Always use the current commit so that each build uses the current version to test itself.
 String version = env.GIT_COMMIT ?: "master"
