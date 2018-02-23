@@ -1,6 +1,7 @@
 *.iml
 *.iws
 .DS_Store
+.classpath
 .gradle/
 .idea/**/dataSources*
 .idea/**/dynamic.xml
