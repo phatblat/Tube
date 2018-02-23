@@ -7,7 +7,9 @@
  * annotation (master by default).
  */
 
-@Library('Tube@tube-dsl') _
+// Always use the current commit so that each build uses the current version to test itself.
+String version = env.GIT_COMMIT ?: "master"
+@Library("Tube@$version") _
 
 tube {
     label = "node1"
