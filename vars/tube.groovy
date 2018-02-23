@@ -5,7 +5,6 @@
 /* sample with all the things turned on:
 <code>
 tube {
-
     label = "hi-speed"
     docker = "java:1.9"
 
@@ -14,8 +13,6 @@ tube {
         BAR : "YASS"
     ]
 
-    git_repo = "https://github.com/cloudbeers/PR-demo"
-
     before_script = "echo before"
     script = 'echo after $FOO'
     after_script = 'echo done now'
@@ -23,15 +20,31 @@ tube {
     notifications = [
         email : "mneale@cloudbees.com"
     ]
-
 }
 </code>
 */
 
 
-// The call(body) method in any file in workflowLibs.git/vars is exposed as a
-// method with the same name as the file.
+
+/**
+ * Runs a pipeline build using the default options. Wraps all logic in try/catch so that no errors
+ * escape logging.
+ *
+ * The call(body) method in any file in workflowLibs.git/vars is exposed as a method with the same name as the file.
+ *
+ * The only argument is a Groovy Closure with configuration data from the project. This data currently consists of:
+ * - label (agent label, currently ignored)
+ * - docker (image name, currently ignored)
+ * - env (environment variables for scripts)
+ * - before_script (ignored)
+ * - script (ignored)
+ * - after_script (ignored)
+ * - notifications (map, errors sent to each "email" entry)
+ *
+ * @param body Closure
+ */
 def call(body) {
+    // Wiring up config to be populated with key-value pairs from user-supplied body.
     def config = [:]
     body.resolveStrategy = Closure.DELEGATE_FIRST
     body.delegate = config
@@ -40,14 +53,19 @@ def call(body) {
     /** Run the build scripts */
 
     try {
+        // TODO: Restore label and docker support
         // if (config.docker_image != null) {
         //     runViaDocker(config)
         // } else {
         //     runViaLabel(config)
         // }
-        runPipeline(config)
+
+        timeout(time: 1, unit: 'HOURS') {
+            runPipeline(config)
+        }
     } catch (Exception rethrow) {
         failureDetail = failureDetail(rethrow)
+        println "Error: $failureDetail"
         sendMail(config, "FAILURE: Pipeline '${env.JOB_NAME}' (${env.BUILD_NUMBER}) failed!",
                 "Your job failed, please review it ${env.BUILD_URL}.\n\n${failureDetail}")
         throw rethrow
@@ -58,22 +76,11 @@ def call(body) {
             "Be happy. Pipeline '${env.JOB_NAME}' (${env.BUILD_NUMBER}) succeeded.")
 }
 
-/** Execute the scripts on the appropriate label node */
-def runViaLabel(config) {
-    node(config.label) {
-        runScripts(config)
-    }
-}
-
-def runViaDocker(config) {
-    node(config.label) {
-        docker.image(config.docker_image).inside {
-            runScripts(config)
-        }
-    }
-}
-
-def runPipeline(config) {
+/**
+ * Runs the standard tube stages.
+ * @param config
+ */
+void runPipeline(config) {
     node {
         stage('🛒 Checkout') {
             echo "🛒 Checkout stage"
@@ -95,6 +102,22 @@ def runPipeline(config) {
         }
         stage('🚀 Deploy') {
             echo "🚀 Deploy stage"
+        }
+    }
+}
+
+/** Execute the scripts on the specified label agent. */
+def runViaLabel(config) {
+    node(config.label) {
+        runScripts(config)
+    }
+}
+
+/** Execute the scripts on the specified label agent and docker image. */
+def runViaDocker(config) {
+    node(config.label) {
+        docker.image(config.docker_image).inside {
+            runScripts(config)
         }
     }
 }
