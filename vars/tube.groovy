@@ -1,5 +1,3 @@
-//package dsl
-
 // See https://jenkins.io/blog/2017/06/27/speaker-blog-SAS-jenkins-world/
 
 /* sample with all the things turned on:
@@ -24,6 +22,7 @@ tube {
 </code>
 */
 
+import at.phatbl.tube.Tube
 
 
 /**
@@ -43,14 +42,15 @@ tube {
  *
  * @param body Closure
  */
-def call(body) {
+void call(body) {
     // Wiring up config to be populated with key-value pairs from user-supplied body.
-    def config = [:]
+    Map config = [:]
     body.resolveStrategy = Closure.DELEGATE_FIRST
     body.delegate = config
     body()
 
-    /** Run the build scripts */
+    Tube tube = new Tube(this, config)
+    tube.run()
 
     try {
         // TODO: Restore label and docker support
@@ -61,7 +61,7 @@ def call(body) {
         // }
 
         timeout(time: 1, unit: 'HOURS') {
-            runPipeline(config)
+//            runPipeline(config)
         }
     } catch (Exception rethrow) {
         failureDetail = failureDetail(rethrow)
