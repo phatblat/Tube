@@ -21,7 +21,10 @@ class Tube {
      * @param config
      */
     void runPipeline(Map config) {
-        script.node {
+        // Wire up groovy delegate to script so that same Jenkinsfile syntax can be used
+        this.delegate = script
+
+        node {
             stage('🛒 Checkout') {
                 echo "🛒 Checkout stage"
                 step([$class: 'WsCleanup'])
