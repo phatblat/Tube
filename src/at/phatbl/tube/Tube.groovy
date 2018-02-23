@@ -7,11 +7,6 @@ class Tube implements Serializable {
     def script
     Map config
 
-    Tube(def script, Map config) {
-        this.script = script
-        this.config = config
-    }
-
     /**
      * Runs the pipeline.
      */

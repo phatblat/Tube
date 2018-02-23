@@ -18,6 +18,6 @@ void call(body) {
     body.delegate = config
     body()
 
-    Tube tube = new Tube(this, config)
+    Tube tube = new Tube(script: this, config: config)
     tube.run()
 }
