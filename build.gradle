@@ -3,10 +3,40 @@
  * Tube
  */
 
+/* -------------------------------------------------------------------------- */
+// Build Script
+/* -------------------------------------------------------------------------- */
+
+plugins {
+    // Apply the groovy plugin to add support for Groovy
+    id 'groovy'
+}
+
 task removeBatchFile(type: Delete) { delete 'gradlew.bat' }
 
 wrapper {
     gradleVersion = '4.6-rc-2'
     distributionType = 'ALL'
     finalizedBy removeBatchFile
+}
+
+/* -------------------------------------------------------------------------- */
+// Build Configuration
+/* -------------------------------------------------------------------------- */
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    //compile localGroovy()
+    compile 'org.codehaus.groovy:groovy-all:2.4.12'
+
+    // Use the awesome Spock testing and specification framework
+    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+}
+
+sourceSets {
+    main.groovy.srcDirs = ['src', 'vars']
+    test.groovy.srcDirs = ['test']
 }
