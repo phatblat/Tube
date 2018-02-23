@@ -20,8 +20,8 @@ class Tube {
      * Runs the standard tube stages.
      * @param config
      */
-    void runPipeline(config) {
-        node {
+    void runPipeline(Map config) {
+        script.node {
             stage('🛒 Checkout') {
                 echo "🛒 Checkout stage"
                 step([$class: 'WsCleanup'])
