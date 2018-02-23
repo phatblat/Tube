@@ -1,6 +1,7 @@
+*.iml
+*.iws
 .DS_Store
 .gradle/
-.idea_modules/
 .idea/**/dataSources*
 .idea/**/dynamic.xml
 .idea/**/gradle.xml
@@ -12,12 +13,12 @@
 .idea/dictionaries
 .idea/misc.xml
 .idea/modules.xml
+.idea_modules/
 .project
 .settings
 .vscode
-*.iml
-*.iws
 atlassian-ide-plugin.xml
+bin/
 build/
 gradlew.bat
 out/
