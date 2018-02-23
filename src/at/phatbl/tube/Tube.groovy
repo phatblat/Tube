@@ -1,9 +1,9 @@
 package at.phatbl.tube
 
 /**
- * Entry point for tube-style pipeline bulid.
+ * Entry point for tube-style pipeline build.
  */
-class Tube {
+class Tube implements Serializable {
     def script
     Map config
 
@@ -21,31 +21,35 @@ class Tube {
      * @param config
      */
     void runPipeline(Map config) {
-        // Wire up groovy delegate to script so that same Jenkinsfile syntax can be used
-        this.delegate = script
+        Closure script = {
+            // Wire up groovy delegate to script so that same Jenkinsfile syntax can be used
+            delegate = script
+            resolveStrategy = DELEGATE_FIRST
 
-        node {
-            stage('🛒 Checkout') {
-                echo "🛒 Checkout stage"
-                step([$class: 'WsCleanup'])
-                checkout scm
-                sh "echo workspace after checkout: && ls -ah"
-            }
-            stage('🏗 Assemble') {
-                echo "🏗 Assemble stage"
-            }
-            stage('✅ Test') {
-                echo "✅ Test stage"
-            }
-            stage('🔎 Code Quality') {
-                echo "🔎 Code Quality stage"
-            }
-            stage('🔖 Release') {
-                echo "🔖 Release stage"
-            }
-            stage('🚀 Deploy') {
-                echo "🚀 Deploy stage"
+            node {
+                stage('🛒 Checkout') {
+                    echo "🛒 Checkout stage"
+                    step([$class: 'WsCleanup'])
+                    checkout scm
+                    sh "echo workspace after checkout: && ls -ah"
+                }
+                stage('🏗 Assemble') {
+                    echo "🏗 Assemble stage"
+                }
+                stage('✅ Test') {
+                    echo "✅ Test stage"
+                }
+                stage('🔎 Code Quality') {
+                    echo "🔎 Code Quality stage"
+                }
+                stage('🔖 Release') {
+                    echo "🔖 Release stage"
+                }
+                stage('🚀 Deploy') {
+                    echo "🚀 Deploy stage"
+                }
             }
         }
+        script()
     }
 }
