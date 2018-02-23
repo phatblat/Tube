@@ -24,7 +24,7 @@ class Tube implements Serializable {
         Closure script = {
             // Wire up groovy delegate to script so that same Jenkinsfile syntax can be used
             delegate = script
-            resolveStrategy = DELEGATE_FIRST
+            resolveStrategy = Closure.DELEGATE_FIRST
 
             node {
                 stage('🛒 Checkout') {
