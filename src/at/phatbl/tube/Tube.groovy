@@ -25,6 +25,23 @@ class Tube implements Serializable {
             resolveStrategy = Closure.DELEGATE_FIRST
             delegate = script
 
+            /*
+             - Only keep the 100 most recent builds.
+             */
+            properties([
+                buildDiscarder(logRotator(numToKeepStr: '100')),
+/*
+                pipelineTriggers([
+                    // This works to add the "GitHub hook trigger for GITScm polling" trigger
+                    // in multibranch and GH org jobs. However, it **REMOVES** all triggers
+                    // when used on the older standalone PRB jobs.
+                    githubPush(),
+                    // cron('H 1 * * *'),
+                ]),
+*/
+            ])
+
+            // Abort if build takes over 1 hour
             timeout(time: 1, unit: 'HOURS') {
                 node {
                     stage('🛒 Checkout') {
