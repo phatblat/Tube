@@ -1,6 +1,6 @@
-package dsl
+//package dsl
 
-// See https://github.com/jenkinsci/workflow-plugin/tree/master/cps-global-lib#defining-global-functions
+// See https://jenkins.io/blog/2017/06/27/speaker-blog-SAS-jenkins-world/
 
 /* sample with all the things turned on:
 <code>
