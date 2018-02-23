@@ -75,7 +75,7 @@ def runViaDocker(config) {
 
 def runPipeline(config) {
     node {
-        stage('Checkout') {
+        stage('🛒 Checkout') {
             step([$class: 'WsCleanup'])
             echo "workspace after cleanup:"
             sh "ls -ah"
@@ -84,19 +84,19 @@ def runPipeline(config) {
             echo "workspace after checkout:"
             sh "ls -ah"
         }
-        stage('Build') {
-            echo "Build stage"
+        stage('🏗 Assemble') {
+            echo "Assemble stage"
         }
-        stage('Test') {
+        stage('✅ Test') {
             echo "Test stage"
         }
-        stage('Lint') {
-            echo "Lint stage"
+        stage('🔎 Code Quality') {
+            echo "Code Quality stage"
         }
-        stage('Release') {
+        stage('🔖 Release') {
             echo "Release stage"
         }
-        stage('Deploy') {
+        stage('🚀 Deploy') {
             echo "Deploy stage"
         }
     }
