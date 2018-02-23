@@ -29,11 +29,11 @@ repositories {
 }
 
 dependencies {
-    //compile localGroovy()
-    compile 'org.codehaus.groovy:groovy-all:2.4.12'
+    //implementation localGroovy()
+    implementation 'org.codehaus.groovy:groovy-all:2.4.12'
 
     // Use the awesome Spock testing and specification framework
-    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+    testImplementation 'org.spockframework:spock-core:1.0-groovy-2.4'
 }
 
 sourceSets {
