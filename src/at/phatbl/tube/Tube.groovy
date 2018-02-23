@@ -23,8 +23,8 @@ class Tube implements Serializable {
     void runPipeline(Map config) {
         Closure script = {
             // Wire up groovy delegate to script so that same Jenkinsfile syntax can be used
-            delegate = script
             resolveStrategy = Closure.DELEGATE_FIRST
+            delegate = script
 
             timeout(time: 1, unit: 'HOURS') {
                 node {
@@ -52,6 +52,29 @@ class Tube implements Serializable {
                 }
             }
         }
-        script()
+
+        try {
+            script()
+        } catch (Exception rethrow) {
+            failureDetail = failureDetail(rethrow)
+            println """\
+                FAILURE: '${env.JOB_NAME} (${env.BUILD_NUMBER})
+                
+                $failureDetail""".stripIndent()
+            throw rethrow
+        }
+    }
+
+    /**
+     * Read the detail from the exception to be used in the failure message
+     * https://issues.jenkins-ci.org/browse/JENKINS-28119 will give better options.
+     */
+    static String failureDetail(exception) {
+        /* not allowed to access StringWriter
+        def w = new StringWriter()
+        exception.printStackTrace(new PrintWriter(w))
+        return w.toString();
+        */
+        return exception.toString()
     }
 }
