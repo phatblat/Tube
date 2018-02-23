@@ -1,11 +1,15 @@
+#!/usr/bin/env groovy
 /*
- * Jenkinsfile
+ * Tubefile
  * Tube
+ * 
+ * Builds the current branch using the version of Tube loaded by the @Library
+ * annotation (master by default).
  */
 
 @Library('Tube') _
 
-simpleBuild {
+tube {
 
     machine = "node1"
 
