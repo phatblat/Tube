@@ -30,13 +30,15 @@ class Tube implements Serializable {
              */
             properties([
                 buildDiscarder(logRotator(numToKeepStr: '100')),
-//                pipelineTriggers([
+/*
+                pipelineTriggers([
                     // This works to add the "GitHub hook trigger for GITScm polling" trigger
                     // in multibranch and GH org jobs. However, it **REMOVES** all triggers
                     // when used on the older standalone PRB jobs.
-//                    githubPush(),
+                    githubPush(),
                     // cron('H 1 * * *'),
-//                ]),
+                ]),
+*/
             ])
 
             // Abort if build takes over 1 hour
