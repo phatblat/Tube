@@ -55,25 +55,27 @@ class Tube implements Serializable {
             timeout(time: 1, unit: 'HOURS') {
                 node {
                     stage('🛒 Checkout') {
-                        echo "🛒 Checkout stage"
                         step([$class: 'WsCleanup'])
                         checkout scm
                         sh "echo workspace after checkout: && ls -ah"
                     }
                     stage('🏗 Assemble') {
-                        echo "🏗 Assemble stage"
+                        gradle "assemble"
                     }
                     stage('✅ Test') {
-                        echo "✅ Test stage"
+                        gradle "test"
                     }
                     stage('🔎 Code Quality') {
-                        echo "🔎 Code Quality stage"
+                        gradle "lint"
+                    }
+                    if (isReleaseBuild()) {
+                        return
                     }
                     stage('🔖 Release') {
-                        echo "🔖 Release stage"
+                        gradle "release"
                     }
                     stage('🚀 Deploy') {
-                        echo "🚀 Deploy stage"
+                        gradle "deploy"
                     }
                 }
             }
