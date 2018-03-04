@@ -13,6 +13,11 @@ class Tube implements Serializable {
     /** Map of project configuration. */
     Map configMap
 
+    /** Computed property for convenient access to environment map. */
+    Map getEnv() {
+        return script.env.getEnvironment()
+    }
+
     /**
      * Runs the pipeline.
      */
@@ -54,6 +59,7 @@ class Tube implements Serializable {
                     stage('🛒 Checkout') {
                         echo "script: $script"
                         echo "script.env: $script.env"
+                        echo "env: $env"
                         echo "script.params: $script.params"
 
                         step([$class: 'WsCleanup'])
