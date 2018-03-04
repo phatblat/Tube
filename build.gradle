@@ -86,7 +86,7 @@ junitPlatform {
         includeClassNamePatterns '.*Spec', '.*Test', '.*Tests'
 
         // org.junit.platform.console.options.Details enum,
-        details "none" // none(default), flat, tree, verbose
+        details "tree" // none(default), flat, tree, verbose
     }
 }
 
@@ -96,3 +96,17 @@ test {
         showStandardStreams false
     }
 }
+
+/* -------------------------------------------------------------------------- */
+// Ad Hoc Tasks
+/* -------------------------------------------------------------------------- */
+
+class TubeTask extends DefaultTask {
+    TubeTask() {
+        group = "🚇 Tube"
+    }
+}
+
+task codeQuality(type: TubeTask)
+task release(type: TubeTask)
+task deploy(type: TubeTask)

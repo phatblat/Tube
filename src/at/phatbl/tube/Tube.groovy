@@ -68,7 +68,7 @@ class Tube implements Serializable {
                         gradle "test"
                     }
                     stage('🔎 Code Quality') {
-                        gradle "lint"
+                        gradle "codeQuality"
                     }
                     if (isReleaseBuild()) {
                         return
