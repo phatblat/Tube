@@ -115,6 +115,19 @@ class Tube implements Serializable {
     }
 
     /**
+     * Determines whether this build should continue to release.
+     * @return
+     */
+    Boolean isReleaseBuild() {
+        script.echo "env: $env"
+        script.echo "env.BRANCH_NAME: $env.BRANCH_NAME"
+        if (isPullRequestBuild()) {
+            return false
+        }
+        return false
+    }
+
+    /**
      * Determines whether this is a pull request build.
      * @return
      */
@@ -127,17 +140,6 @@ class Tube implements Serializable {
         else if (script.env.BRANCH_NAME.contains("PR-")) {
             // Multibranch jobs populate BRANCH_NAME with "PR-123"
             return true
-        }
-        return false
-    }
-
-    /**
-     * Determines whether this build should continue to release.
-     * @return
-     */
-    Boolean isReleaseBuild() {
-        if (isPullRequestBuild()) {
-            return false
         }
         return false
     }
