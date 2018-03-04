@@ -1,5 +1,8 @@
 package at.phatbl.tube
 
+import at.phatbl.tube.config.Config
+import at.phatbl.tube.config.UserConfig
+
 /**
  * Entry point for tube-style pipeline build.
  */
@@ -17,7 +20,8 @@ class Tube implements Serializable {
         println("script: $script")
         println("configMap: $configMap")
 
-        runPipeline(buildPipeline(configMap))
+        Config config = new UserConfig(configMap)
+        runPipeline(buildPipeline(config))
     }
 
     /**
@@ -25,7 +29,7 @@ class Tube implements Serializable {
      * @param config Map of project ata passed to tube.
      * @return Closure of all the pipeline build steps.
      */
-    Closure buildPipeline(Map configMap) {
+    Closure buildPipeline(Config config) {
         return {
             // Wire up groovy delegate to script so that same Jenkinsfile syntax can be used
             resolveStrategy = Closure.DELEGATE_FIRST
