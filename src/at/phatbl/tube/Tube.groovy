@@ -109,7 +109,7 @@ class Tube implements Serializable {
             script.echo("""\
                 FAILURE: '${script.env.JOB_NAME} (${script.env.BUILD_NUMBER})
                 
-                $failureDetail""") //.stripIndent()
+                $failureDetail""").stripIndent()
             throw rethrow
         }
     }
