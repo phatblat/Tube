@@ -17,11 +17,6 @@ class Tube implements Serializable {
      * Runs the pipeline.
      */
     void run() {
-        println("script: $script")
-        println("script.env: $script.env")
-        println("script.params: $script.params")
-        println("configMap: $configMap")
-
         Config config = new UserConfig(configMap)
         runPipeline(buildPipeline(config))
     }
@@ -57,6 +52,10 @@ class Tube implements Serializable {
             timeout(time: 1, unit: 'HOURS') {
                 node {
                     stage('🛒 Checkout') {
+                        echo "script: $script"
+                        echo "script.env: $script.env"
+                        echo "script.params: $script.params"
+
                         step([$class: 'WsCleanup'])
                         checkout scm
                         sh "echo workspace after checkout: && ls -ah"
@@ -95,7 +94,7 @@ class Tube implements Serializable {
             pipeline()
         } catch (Exception rethrow) {
             failureDetail = failureDetail(rethrow)
-            println """\
+            script.echo """\
                 FAILURE: '${script.env.JOB_NAME} (${script.env.BUILD_NUMBER})
                 
                 $failureDetail""".stripIndent()
