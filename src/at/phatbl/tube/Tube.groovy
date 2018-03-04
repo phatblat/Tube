@@ -59,11 +59,14 @@ class Tube implements Serializable {
                     stage('🛒 Checkout') {
                         echo "script: $script"
                         echo "script.env: $script.env"
-                        echo "env: $env"
+                        echo "env.BRANCH_NAME: $env.BRANCH_NAME"
                         echo "script.params: $script.params"
 
+                        // FIXME: cleanWs step broken?
                         // https://jenkins.io/doc/pipeline/steps/ws-cleanup/#cleanws-delete-workspace-when-build-is-done
-                        cleanWs
+                        // groovy.lang.MissingPropertyException: No such property: cleanWs for class: tube
+                        // Workspace Cleanup Plugin loaded http://wiki.jenkins-ci.org/display/JENKINS/Workspace+Cleanup+Plugin
+                        step([$class: 'WsCleanup'])
                         checkout scm
                         sh "echo workspace after checkout: && ls -ah"
                         gradle "clean"
