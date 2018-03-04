@@ -11,7 +11,7 @@
  * @param args Space-separated string of additional arguments to pass to Gradle.
  */
 void call(args) {
-    wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
+    ansiColor('xterm') {
         sh "./gradlew --info --no-daemon --stacktrace $args"
     }
 }

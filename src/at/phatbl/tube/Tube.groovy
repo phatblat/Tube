@@ -57,7 +57,7 @@ class Tube implements Serializable {
             timeout(time: 1, unit: 'HOURS') {
                 node {
                     stage('🛒 Checkout') {
-                        wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
+                        ansiColor('xterm') {
                             echo "script: $script"
                             echo "script.env: $script.env"
                             echo "env.BRANCH_NAME: $env.BRANCH_NAME"
