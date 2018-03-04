@@ -57,20 +57,22 @@ class Tube implements Serializable {
             timeout(time: 1, unit: 'HOURS') {
                 node {
                     stage('🛒 Checkout') {
-                        echo "script: $script"
-                        echo "script.env: $script.env"
-                        echo "env.BRANCH_NAME: $env.BRANCH_NAME"
-                        echo "script.params: $script.params"
+                        wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
+                            echo "script: $script"
+                            echo "script.env: $script.env"
+                            echo "env.BRANCH_NAME: $env.BRANCH_NAME"
+                            echo "script.params: $script.params"
 
-                        // FIXME: cleanWs step broken?
-                        // https://jenkins.io/doc/pipeline/steps/ws-cleanup/#cleanws-delete-workspace-when-build-is-done
-                        // groovy.lang.MissingPropertyException: No such property: cleanWs for class: tube
-                        // Workspace Cleanup Plugin loaded http://wiki.jenkins-ci.org/display/JENKINS/Workspace+Cleanup+Plugin
-                        step([$class: 'WsCleanup'])
-                        checkout scm
-                        sh "echo workspace after checkout: && ls -ah"
-                        gradle "clean"
-                        sh "echo workspace after gradle clean: && ls -ah"
+                            // FIXME: cleanWs step broken?
+                            // https://jenkins.io/doc/pipeline/steps/ws-cleanup/#cleanws-delete-workspace-when-build-is-done
+                            // groovy.lang.MissingPropertyException: No such property: cleanWs for class: tube
+                            // Workspace Cleanup Plugin loaded http://wiki.jenkins-ci.org/display/JENKINS/Workspace+Cleanup+Plugin
+                            step([$class: 'WsCleanup'])
+                            checkout scm
+                            sh "echo workspace after checkout: && ls -ah"
+                            gradle "clean"
+                            sh "echo workspace after gradle clean: && ls -ah"
+                        }
                     }
                     stage('🏗 Assemble') {
                         gradle "assemble"
