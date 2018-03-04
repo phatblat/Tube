@@ -8,6 +8,7 @@
  */
 
 
+echo "script: $this"
 echo "env.GIT_COMMIT: ${env.GIT_COMMIT}"
 echo "env.BRANCH_NAME: ${env.BRANCH_NAME}"
 echo "env.CHANGE_BRANCH: ${env.CHANGE_BRANCH}"

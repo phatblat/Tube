@@ -21,6 +21,8 @@ void call(body) {
     body.delegate = configMap
     body()
 
+    echo "script: $this"
+
     Tube tube = new Tube(script: this, configMap: configMap)
     tube.run()
 }
