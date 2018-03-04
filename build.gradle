@@ -56,6 +56,7 @@ dependencies {
     // Build triggers
     implementation "org.jenkins-ci.plugins:pipeline-build-step:2.4@jar"
     implementation "org.jenkins-ci.plugins:pipeline-input-step:2.5@jar"
+    implementation "org.jenkins-ci.plugins:ansicolor:0.5.2@jar"
     // Flow nodes
 //    implementation "org.jenkins-ci.plugins.workflow:workflow-api:2.16@jar"
 //    implementation "org.jenkins-ci.plugins.workflow:workflow-support:2.13@jar"
