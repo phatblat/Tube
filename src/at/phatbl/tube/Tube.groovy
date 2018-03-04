@@ -62,7 +62,8 @@ class Tube implements Serializable {
                         echo "env: $env"
                         echo "script.params: $script.params"
 
-                        step([$class: 'WsCleanup'])
+                        // https://jenkins.io/doc/pipeline/steps/ws-cleanup/#cleanws-delete-workspace-when-build-is-done
+                        cleanWs
                         checkout scm
                         sh "echo workspace after checkout: && ls -ah"
                         gradle "clean"
