@@ -141,7 +141,7 @@ class Tube implements Serializable {
      * Read the detail from the exception to be used in the failure message
      * https://issues.jenkins-ci.org/browse/JENKINS-28119 will give better options.
      */
-    static String failureDetail(exception) {
+    String failureDetail(exception) {
         /* not allowed to access StringWriter
         def w = new StringWriter()
         exception.printStackTrace(new PrintWriter(w))
