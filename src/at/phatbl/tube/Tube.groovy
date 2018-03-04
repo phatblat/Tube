@@ -113,7 +113,7 @@ class Tube implements Serializable {
         try {
             pipeline()
         } catch (Exception rethrow) {
-            failureDetail = failureDetail(rethrow)
+            String failureDetail = failureDetail(rethrow)
             script.echo("""\
                 FAILURE: '${script.env.JOB_NAME} (${script.env.BUILD_NUMBER})
                 
