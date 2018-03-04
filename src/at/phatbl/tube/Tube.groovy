@@ -58,6 +58,8 @@ class Tube implements Serializable {
                         step([$class: 'WsCleanup'])
                         checkout scm
                         sh "echo workspace after checkout: && ls -ah"
+                        gradle "clean"
+                        sh "echo workspace after gradle clean: && ls -ah"
                     }
                     stage('🏗 Assemble') {
                         gradle "assemble"
