@@ -10,9 +10,7 @@
 
 echo "script: $this"
 echo "env: $env"
-echo "this.env: ${this.env}"
 echo "params: $params"
-echo "this.params: ${this.params}"
 echo "env.GIT_COMMIT: ${env.GIT_COMMIT}"
 echo "env.BRANCH_NAME: ${env.BRANCH_NAME}"
 echo "env.CHANGE_BRANCH: ${env.CHANGE_BRANCH}"
