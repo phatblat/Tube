@@ -17,7 +17,9 @@ class UserConfig implements Config {
         Map newConfig = defaultMap.clone() as Map
         // Merge maps (+ not working)
         configMap.each { key, value ->
-            newConfig."$key" = value
+            if (value != null) {
+                newConfig."$key" = value
+            }
         }
         // Set fields from map
         newConfig.each { key, value ->

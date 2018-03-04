@@ -18,4 +18,12 @@ class ConfigSpec extends Specification {
         expect:
         config.label == "secret_agent"
     }
+
+    void "can handle null"() {
+        setup:
+        Config config = new UserConfig(label: null)
+
+        expect:
+        config.label == "mini"
+    }
 }
