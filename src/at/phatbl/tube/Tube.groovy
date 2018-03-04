@@ -83,7 +83,7 @@ class Tube implements Serializable {
                     stage('🔎 Code Quality') {
                         gradle "codeQuality"
                     }
-                    if (isReleaseBuild()) {
+                    if (!isReleaseBuild()) {
                         return
                     }
                     stage('🔖 Release') {
@@ -119,8 +119,6 @@ class Tube implements Serializable {
      * @return
      */
     Boolean isReleaseBuild() {
-        script.echo "env: $env"
-        script.echo "env.BRANCH_NAME: $env.BRANCH_NAME"
         if (isPullRequestBuild()) {
             return false
         }
@@ -137,7 +135,7 @@ class Tube implements Serializable {
             // Parameter is coerced into a Boolean using Groovy "truthy" logic.
             return script.params.sha1?.trim()
         }
-        else if (script.env.BRANCH_NAME.contains("PR-")) {
+        else if (env.BRANCH_NAME.contains("PR-")) {
             // Multibranch jobs populate BRANCH_NAME with "PR-123"
             return true
         }
