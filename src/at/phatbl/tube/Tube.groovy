@@ -98,6 +98,34 @@ class Tube implements Serializable {
     }
 
     /**
+     * Determines whether this is a pull request build.
+     * @return
+     */
+    Boolean isPullRequestBuild() {
+        if (script.params.sha1 != null) {
+            // Standalone PRB populates the 'sha1' parameter with the commit hash to build.
+            // Parameter is coerced into a Boolean using Groovy "truthy" logic.
+            return script.params.sha1?.trim()
+        }
+        else if (script.env.BRANCH_NAME.contains("PR-")) {
+            // Multibranch jobs populate BRANCH_NAME with "PR-123"
+            return true
+        }
+        return false
+    }
+
+    /**
+     * Determines whether this build should continue to release.
+     * @return
+     */
+    Boolean isReleaseBuild() {
+        if (isPullRequestBuild()) {
+            return false
+        }
+        return false
+    }
+
+    /**
      * Read the detail from the exception to be used in the failure message
      * https://issues.jenkins-ci.org/browse/JENKINS-28119 will give better options.
      */
