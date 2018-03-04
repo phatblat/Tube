@@ -93,6 +93,19 @@ class Tube implements Serializable {
     }
 
     /**
+     * Read the detail from the exception to be used in the failure message
+     * https://issues.jenkins-ci.org/browse/JENKINS-28119 will give better options.
+     */
+    String failureDetail(exception) {
+        /* not allowed to access StringWriter
+        def w = new StringWriter()
+        exception.printStackTrace(new PrintWriter(w))
+        return w.toString();
+        */
+        return exception.toString()
+    }
+
+    /**
      * Invokes the given closure within a try/catch block.
      * @param pipeline Closure containing pipeline build steps.
      */
@@ -135,18 +148,5 @@ class Tube implements Serializable {
             return false
         }
         return false
-    }
-
-    /**
-     * Read the detail from the exception to be used in the failure message
-     * https://issues.jenkins-ci.org/browse/JENKINS-28119 will give better options.
-     */
-    String failureDetail(exception) {
-        /* not allowed to access StringWriter
-        def w = new StringWriter()
-        exception.printStackTrace(new PrintWriter(w))
-        return w.toString();
-        */
-        return exception.toString()
     }
 }
