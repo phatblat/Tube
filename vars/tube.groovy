@@ -16,11 +16,11 @@ import at.phatbl.tube.Tube
  */
 void call(body) {
     // Wiring up config to be populated with key-value pairs from user-supplied body.
-    Map config = [:]
+    Map configMap = [:]
     body.resolveStrategy = Closure.DELEGATE_FIRST
-    body.delegate = config
+    body.delegate = configMap
     body()
 
-    Tube tube = new Tube(script: this, config: config)
+    Tube tube = new Tube(script: this, configMap: configMap)
     tube.run()
 }
