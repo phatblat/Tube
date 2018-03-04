@@ -18,6 +18,8 @@ class Tube implements Serializable {
      */
     void run() {
         println("script: $script")
+        println("script.env: $script.env")
+        println("script.params: $script.params")
         println("configMap: $configMap")
 
         Config config = new UserConfig(configMap)
