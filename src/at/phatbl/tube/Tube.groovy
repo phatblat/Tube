@@ -101,10 +101,10 @@ class Tube implements Serializable {
             pipeline()
         } catch (Exception rethrow) {
             failureDetail = failureDetail(rethrow)
-            script.echo """\
+            script.echo("""\
                 FAILURE: '${script.env.JOB_NAME} (${script.env.BUILD_NUMBER})
                 
-                $failureDetail""".stripIndent()
+                $failureDetail""").stripIndent()
             throw rethrow
         }
     }
