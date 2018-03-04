@@ -5,7 +5,7 @@ package at.phatbl.tube.config
  */
 class UserConfig implements Config {
     String label
-    
+
     /**
      * Custom Map constructor which merges the given map with defaultMap before assigning to fields.
      * @param configMap
