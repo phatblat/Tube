@@ -2,4 +2,5 @@
 
 ## Unreleased
 
-- Add support for Gradle task implementation of Tube stages. #13
+- 🐛 Fixed NPE when build fails. #15
+- 🐘 Added support for Gradle task implementation of Tube stages. #13
