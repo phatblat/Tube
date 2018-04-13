@@ -4,6 +4,12 @@
  */
 
 /* -------------------------------------------------------------------------- */
+// 🛃 Imports
+/* -------------------------------------------------------------------------- */
+
+import org.junit.platform.console.options.Details
+
+/* -------------------------------------------------------------------------- */
 // 🔌 Plugins
 /* -------------------------------------------------------------------------- */
 
@@ -19,7 +25,11 @@ plugins {
 }
 
 /* -------------------------------------------------------------------------- */
-// Build
+// 📋 Properties
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+// 👪 Dependencies
 /* -------------------------------------------------------------------------- */
 
 repositories {
@@ -57,23 +67,21 @@ dependencies {
     //testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.1.0"
 }
 
+/* -------------------------------------------------------------------------- */
+// 🏗 Assemble
+/* -------------------------------------------------------------------------- */
+
 sourceSets {
     main.groovy.srcDirs = ['src', 'vars']
     test.groovy.srcDirs = ['test']
 }
 
 /* -------------------------------------------------------------------------- */
-// Test
+// ✅ Test
 /* -------------------------------------------------------------------------- */
 
 // https://junit.org/junit5/docs/current/user-guide/#running-tests-build
 junitPlatform {
-    // platformVersion '1.1.0' // optional, defaults to plugin version
-    // reportsDir file('build/test-results/junit-platform') // this is the default
-    // enableStandardTestTask true
-    // selectors (optional)
-    // logManager (optional)
-
     filters {
         engines {
             include 'junit-vintage'
@@ -85,20 +93,12 @@ junitPlatform {
 
         includeClassNamePatterns '.*Spec', '.*Test', '.*Tests'
 
-        // org.junit.platform.console.options.Details enum,
-        details "tree" // none(default), flat, tree, verbose
-    }
-}
-
-test {
-    testLogging {
-        events "passed", "skipped", "failed"
-        showStandardStreams false
+        details = Details.TREE
     }
 }
 
 /* -------------------------------------------------------------------------- */
-// Ad Hoc Tasks
+// 🚇 Tube
 /* -------------------------------------------------------------------------- */
 
 class TubeTask extends DefaultTask {
