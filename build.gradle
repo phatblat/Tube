@@ -4,37 +4,32 @@
  */
 
 /* -------------------------------------------------------------------------- */
-// Build Script
+// 🛃 Imports
 /* -------------------------------------------------------------------------- */
 
-buildscript {
-    repositories {
-        mavenCentral()
-        // The following is only necessary if you want to use SNAPSHOT releases.
-        // maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
-    }
-    dependencies {
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.1.0'
-    }
-}
+import org.junit.platform.console.options.Details
+
+/* -------------------------------------------------------------------------- */
+// 🔌 Plugins
+/* -------------------------------------------------------------------------- */
 
 plugins {
+    // Gradle built-in
     id 'groovy'
-}
 
-//apply plugin: 'groovy'
-apply plugin: 'org.junit.platform.gradle.plugin'
+    // Gradle plugin portal - https://plugins.gradle.org/
+    id 'at.phatbl.clamp' version "1.0.0"
 
-task removeBatchFile(type: Delete) { delete 'gradlew.bat' }
-
-wrapper {
-    gradleVersion = '4.6'
-    distributionType = 'ALL'
-    finalizedBy removeBatchFile
+    // Custom handling in pluginManagement
+    id 'org.junit.platform.gradle.plugin' version "1.1.0"
 }
 
 /* -------------------------------------------------------------------------- */
-// Build
+// 📋 Properties
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+// 👪 Dependencies
 /* -------------------------------------------------------------------------- */
 
 repositories {
@@ -72,23 +67,21 @@ dependencies {
     //testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.1.0"
 }
 
+/* -------------------------------------------------------------------------- */
+// 🏗 Assemble
+/* -------------------------------------------------------------------------- */
+
 sourceSets {
     main.groovy.srcDirs = ['src', 'vars']
     test.groovy.srcDirs = ['test']
 }
 
 /* -------------------------------------------------------------------------- */
-// Test
+// ✅ Test
 /* -------------------------------------------------------------------------- */
 
 // https://junit.org/junit5/docs/current/user-guide/#running-tests-build
 junitPlatform {
-    // platformVersion '1.1.0' // optional, defaults to plugin version
-    // reportsDir file('build/test-results/junit-platform') // this is the default
-    // enableStandardTestTask true
-    // selectors (optional)
-    // logManager (optional)
-
     filters {
         engines {
             include 'junit-vintage'
@@ -100,20 +93,12 @@ junitPlatform {
 
         includeClassNamePatterns '.*Spec', '.*Test', '.*Tests'
 
-        // org.junit.platform.console.options.Details enum,
-        details "tree" // none(default), flat, tree, verbose
-    }
-}
-
-test {
-    testLogging {
-        events "passed", "skipped", "failed"
-        showStandardStreams false
+        details = Details.TREE
     }
 }
 
 /* -------------------------------------------------------------------------- */
-// Ad Hoc Tasks
+// 🚇 Tube
 /* -------------------------------------------------------------------------- */
 
 class TubeTask extends DefaultTask {
