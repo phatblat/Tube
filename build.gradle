@@ -22,8 +22,13 @@ plugins {
 }
 
 /* -------------------------------------------------------------------------- */
-// 📋 Properties
+// 🐘 Gradle Wrapper
 /* -------------------------------------------------------------------------- */
+
+wrapper {
+    gradleVersion = gradleWrapperVersion
+    distributionType = Wrapper.DistributionType.ALL
+}
 
 /* -------------------------------------------------------------------------- */
 // 👪 Dependencies
