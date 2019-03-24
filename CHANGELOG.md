@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- ➖ Clamp #19
+- 🧹 Use cleanWs step #18
 
 ## 1.0.0
 

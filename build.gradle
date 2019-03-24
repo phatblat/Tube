@@ -17,16 +17,18 @@ plugins {
     // Gradle built-in
     id 'groovy'
 
-    // Gradle plugin portal - https://plugins.gradle.org/
-    id 'at.phatbl.clamp' version "1.0.0"
-
     // Custom handling in pluginManagement
     id 'org.junit.platform.gradle.plugin' version "1.1.0"
 }
 
 /* -------------------------------------------------------------------------- */
-// 📋 Properties
+// 🐘 Gradle Wrapper
 /* -------------------------------------------------------------------------- */
+
+wrapper {
+    gradleVersion = gradleWrapperVersion
+    distributionType = Wrapper.DistributionType.ALL
+}
 
 /* -------------------------------------------------------------------------- */
 // 👪 Dependencies
