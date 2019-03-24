@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- 🧹 Use cleanWs step #18
 
 ## 1.0.0
 
